@@ -13,6 +13,7 @@ import DocPaginator from "@theme/DocPaginator";
 import useTOCHighlight from "@theme/hooks/useTOCHighlight";
 import classnames from "classnames";
 import clsx from "clsx";
+import DOMPurify from "dompurify";
 import React from "react";
 import styles from "./styles.module.css";
 
@@ -47,7 +48,9 @@ function Headings({ headings, isChild }) {
           <a
             href={`#${heading.id}`}
             className={LINK_CLASS_NAME}
-            dangerouslySetInnerHTML={{ __html: heading.value }}
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(heading.value),
+            }}
           />
           <Headings isChild headings={heading.children} />
         </li>
